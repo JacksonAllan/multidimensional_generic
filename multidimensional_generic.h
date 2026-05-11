@@ -88,13 +88,23 @@ Examples:
 
     int main(void)
     {
-      int raw = 0;
-      int array_1d[1] = {0};
-      int array_2d[1][2] = {0};
-      int array_3d[1][2][3] = {0};
-      int array_4d[1][2][3][4] = {0};
-      int array_5d[1][2][3][4][5] = {0};
-      int array_6d[1][2][3][4][5][6] = {0};
+      int raw;
+      int array_1d[1];
+      int array_2d[1][2];
+      int array_3d[1][2][3];
+      int array_4d[1][2][3][4];
+      int array_5d[1][2][3][4][5];
+      int array_6d[1][2][3][4][5][6];
+
+      for( int i = 0; i < sizeof(array_6d) / sizeof(int); ++i)
+      {
+        if(i < sizeof( raw ) / sizeof(int)) *((int *)&raw + i) = i;
+        if(i < sizeof( array_2d ) / sizeof(int)) *((int *)array_2d + i) = i;
+        if(i < sizeof( array_3d ) / sizeof(int)) *((int *)array_3d + i) = i;
+        if(i < sizeof( array_4d ) / sizeof(int)) *((int *)array_4d + i) = i;
+        if(i < sizeof( array_5d ) / sizeof(int)) *((int *)array_5d + i) = i;
+        if(i < sizeof( array_6d ) / sizeof(int)) *((int *)array_6d + i) = i;
+      }
 
       PRINT(&raw);
       printf("\n");
@@ -131,13 +141,13 @@ Examples:
 
     int main(void)
     {
-      int raw = 0;
-      int array_1d[1] = {0};
-      int array_2d[1][2] = {0};
-      int array_3d[1][2][3] = {0};
-      int array_4d[1][2][3][4] = {0};
-      int array_5d[1][2][3][4][5] = {0};
-      int array_6d[1][2][3][4][5][6] = {0};
+      int raw;
+      int array_1d[1];
+      int array_2d[1][2];
+      int array_3d[1][2][3];
+      int array_4d[1][2][3][4];
+      int array_5d[1][2][3][4][5];
+      int array_6d[1][2][3][4][5][6];
 
       PRINT_TYPEOF(raw);
       printf("\n");
@@ -155,7 +165,7 @@ Examples:
       printf("\n");
     }
 
-  3. Using MDG_DIM*_EL_SIZE to provide array dimension data to the called function:
+  3. Using MDG_DIM?_EL_SIZE to provide array dimension data to the called function:
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -205,13 +215,23 @@ Examples:
 
     int main(void)
     {
-      int raw = 0;
-      int array_1d[1] = {0};
-      int array_2d[1][2] = {0};
-      int array_3d[1][2][3] = {0};
-      int array_4d[1][2][3][4] = {0};
-      int array_5d[1][2][3][4][5] = {0};
-      int array_6d[1][2][3][4][5][6] = {0};
+      int raw;
+      int array_1d[1];
+      int array_2d[1][2];
+      int array_3d[1][2][3];
+      int array_4d[1][2][3][4];
+      int array_5d[1][2][3][4][5];
+      int array_6d[1][2][3][4][5][6];
+
+      for( int i = 0; i < sizeof(array_6d) / sizeof(int); ++i)
+      {
+        if(i < sizeof( raw ) / sizeof(int)) *((int *)&raw + i) = i;
+        if(i < sizeof( array_2d ) / sizeof(int)) *((int *)array_2d + i) = i;
+        if(i < sizeof( array_3d ) / sizeof(int)) *((int *)array_3d + i) = i;
+        if(i < sizeof( array_4d ) / sizeof(int)) *((int *)array_4d + i) = i;
+        if(i < sizeof( array_5d ) / sizeof(int)) *((int *)array_5d + i) = i;
+        if(i < sizeof( array_6d ) / sizeof(int)) *((int *)array_6d + i) = i;
+      }
 
       PRINT(&raw);
       printf("\n");
@@ -272,7 +292,8 @@ License (MIT):
 
 #define MDG_IS_ARRAY(x) _Generic((x), MDG_TYPEOF_UNQUAL(x): 0, default: 1)
 
-#define MDG_IC_TYPE(x) MDG_TYPEOF(char (*)[1 + x]) // Integral-constant type, similar to C++'s std::integral_constant.
+// Integral-constant type, similar to C++'s std::integral_constant.
+#define MDG_IC_TYPE(i) MDG_TYPEOF(char (*)[1 + (i)])
 
 #define MDG_MDG_DIM_COUNT(x)                                                                                         \
 _Generic(                                                                                                            \
